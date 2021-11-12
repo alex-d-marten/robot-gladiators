@@ -65,7 +65,7 @@ var fight = function(enemy) {
 // Function to start a new game
 var startGame = function() {
   // reset player stats
-  playerInfo.reset;
+  playerInfo.reset();
 // fight each enemy-robot by looping over them and fighting them one at a time
   for (var i = 0; i < enemyInfo.length; i++) {
     // if player is still alive, keep fighting
