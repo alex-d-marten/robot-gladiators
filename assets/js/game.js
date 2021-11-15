@@ -26,7 +26,6 @@ var fightOrSkip = function() {
 // fight function (now with parameter for enemy's name)
 var fight = function(enemy) {
   // keep track of who goes first
-  debugger;
   var isPlayerTurn = true;
 
   // randomly change turn order
@@ -142,17 +141,39 @@ var startGame = function() {
   endGame();
 };
 
+
+
+// START
 // function to end the entire game
 var endGame = function() {
   window.alert("The game has ended now. Let's see how you did!")
-  
+
   if (playerInfo.health > 0) {
-    window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    window.alert("You have a score of " + playerInfo.money + ".");
   }
   else {
     window.alert("You've lost your robot in battle.");
   }
 
+  // initiate variable for high score from local storage for player
+  var highScore = localStorage.getItem("highScore");
+  highScore = highScore || 0;
+
+  if (playerInfo.money > highScore) {
+    localStorage.setItem("highScore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+    window.alert("Congratulations! " + playerInfo.name + " has earned the new high score of " + playerInfo.money + " Nice work!")
+  }
+
+  else if (playerInfo.money = highScore) {
+    window.alert(playerInfo.name + " tied for the high score. Try again to beat the leader!")
+  }
+
+
+  else {
+    window.alert(playerInfo.name + " failed to beat the high score of " + playerInfo.money);
+  }
+  
   var playAgainConfirm = window.confirm("Would you like to play again?");
 
   if (playAgainConfirm) {
@@ -164,9 +185,11 @@ var endGame = function() {
   }
 };
 
+// END
+
 var shop = function() {
   var shopOptionPrompt = window.prompt(
-    "Would you like to refill your health, upgrade your attack, or leave the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+    "Would you like to refill your health, upgrade your attack, or leave the store? Please enter one: 1 to refill, 2 to upgrade, or 3 to make a choice."
   );
 
   // use switch to carry out action
